@@ -1,12 +1,16 @@
-// Global app controller
-import str from './models/Search';
-// import { add as a, multiply as m, ID } from './views/searchView';
-import * as searchView from './views/searchView';
+import axios from 'axios';
 
-// console.log(`Using imported functions ${a(ID, 2)} and ${m(3, 5)}. ${str}`);
-console.log(
-  `Using imported functions ${searchView.add(
-    searchView.ID,
-    2
-  )} and ${searchView.multiply(3, 5)}. ${str}`
-);
+async function getResults(query) {
+  const key = '05c1afad250d85c543be49e78f2809c1';
+  try {
+    const res = await axios(
+      `https://www.food2fork.com/api/search?key=${key}&q=${query}`
+    );
+    const recipes = res.data.recipes;
+    console.log(recipes);
+  } catch (error) {
+    alert(error);
+  }
+}
+
+getResults('tomato pasta');
